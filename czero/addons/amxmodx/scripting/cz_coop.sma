@@ -118,7 +118,6 @@ public OnHandleEvent(pThisObject, event, pAttacker, pVictim)
 
 public client_putinserver(id)
 {
-	spawn_count()
 	// Only for Career Mode
 	if (get_member_game(m_bInCareerGame))
 	{
