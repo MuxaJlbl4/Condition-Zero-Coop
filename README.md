@@ -2,7 +2,7 @@
 
 Cooperative patches for **Counter-Strike: Condition Zero**. Enables cooperative play for **Tour of Duty** missions.
 
-## Showcase
+https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4f08-8b7b-f7462a6a2d7a
 
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
