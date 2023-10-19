@@ -1,0 +1,9 @@
+This difference file was created by IDA
+
+hw.dll
+00069498: 83 EB
+00069499: FE 03
+0006949A: 01 90
+0006949B: 7D 90
+0006949C: 05 90
+0006949E: 01 20
