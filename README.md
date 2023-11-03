@@ -23,7 +23,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - **LAN connection** with your teammates (physical or VPN)
 
 ## Installation and Usage
-- **Admin**: Unpack [Condition-Zero-Coop.exe](/releases/latest) to folder with **hl.exe** and start any career mission
+- **Admin**: Unpack [Condition-Zero-Coop.exe](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/latest) to folder with **hl.exe** and start any career mission
 - **Teammates**: Connect to Admin by `connect <IP>` or `Find Servers -> Lan`
 
 ## CVars
@@ -60,17 +60,5 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 4. Launch `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat` to compile [Autospawnpoints](https://dev-cs.ru/resources/1253) plugin
 5. Launch `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat` to compile [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) plugin
 
-## Other Links
-- [Steam Guide (En)](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485)
-- [Steam Guide (Ru)](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
-
 ## Special Thanks
-- [Arkshine](https://github.com/Arkshine)
-- [dystopm](https://github.com/dystopm)
-- [fl0werD](https://github.com/fl0werD)
-- [iPlague](https://roadtoglory.ru/profile?id=1)
-- [jkivilin](https://github.com/jkivilin)
-- [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878)
-- [s1lentq](https://github.com/s1lentq)
-- [Vaqtincha](https://github.com/Vaqtincha)
-- [wopox1337](https://github.com/wopox1337)
+[Arkshine](https://github.com/Arkshine) · [dystopm](https://github.com/dystopm) · [fl0werD](https://github.com/fl0werD) · [iPlague](https://roadtoglory.ru/profile?id=1) · [jkivilin](https://github.com/jkivilin) · [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878) · [s1lentq](https://github.com/s1lentq) · [Vaqtincha](https://github.com/Vaqtincha) · [wopox1337](https://github.com/wopox1337)
