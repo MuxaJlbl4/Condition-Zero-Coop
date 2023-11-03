@@ -1,0 +1,34 @@
+[
+	{
+		"name"			: "SkipBotQuotaPatch1",
+		"library"		: "mod",
+		"type"			: "byte",
+		"memoryType"	: "code",
+		"identifiers"	: 
+		[
+			{
+				"os"	: "windows",
+				"mod"	: "cstrike",
+				"value"	: [0x83,0x7E,0x60,0x06],
+				"info"	: "regamedll 5.20.0.498+",
+				"displacement"	: 4
+			}
+		]
+	},
+	{
+		"name"			: "SkipBotQuotaPatch2",
+		"library"		: "mod",
+		"type"			: "byte",
+		"memoryType"	: "code",
+		"identifiers"	: 
+		[
+			{
+				"os"	: "windows",
+				"mod"	: "cstrike",
+				"value"	: [0x83,0x7E,0x5C,0x06],
+				"info"	: "regamedll 5.20.0.498+",
+				"displacement"	: 4
+			}
+		]
+	}
+]
