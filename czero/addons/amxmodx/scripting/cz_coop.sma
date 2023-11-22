@@ -6,10 +6,11 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"1.1"
+#define VERSION	"1.2"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
+new WinMsg = 0
 
 public plugin_init()
 {
@@ -95,12 +96,26 @@ public OnUTIL_CareerDPrintf(pszMsg, ...)
 	// Check victory
 	if (!strcmp(team, winteam))
 	{
-		// Restore match end message
-		// jmp +B5 -> push 0; push 0; push ?gmsgCZCareer@@3HA;
-		OrpheuMemorySet("SkipMatchHudMsgPatch1", 1, 0x006A006A) // E9 B5 00 00 -> 6A 00 6A 00
-		OrpheuMemorySet("SkipMatchHudMsgPatch2", 1, 0xFF) // 00 -> FF
-		// Unhook to prevent spam
-		OrpheuUnregisterHook(HandleUTIL_CareerDPrintf)
+		if (!WinMsg)
+		{
+			// Win message not received
+			// Restore match end message
+			// jmp +B5 -> push 0; push 0; push ?gmsgCZCareer@@3HA;
+			OrpheuMemorySet("SkipMatchHudMsgPatch1", 1, 0x006A006A) // E9 B5 00 00 -> 6A 00 6A 00
+			OrpheuMemorySet("SkipMatchHudMsgPatch2", 1, 0xFF) // 00 -> FF
+			// Change hook behavior for next call
+			WinMsg = 1
+		}
+		else
+		{
+			// Win message received
+			// Hide match end message to prevent spam
+			// push 0; push 0; push ?gmsgCZCareer@@3HA; -> jmp +B5
+			OrpheuMemorySet("SkipMatchHudMsgPatch1", 1, 0x0000B5E9) // 6A 00 6A 00 -> E9 B5 00 00
+			OrpheuMemorySet("SkipMatchHudMsgPatch2", 1, 0x00) // FF -> 00
+			// Unhook function to prevent spam
+			OrpheuUnregisterHook(HandleUTIL_CareerDPrintf)
+		}
 	}
 	else
 	{
@@ -194,8 +209,7 @@ public extra_bots_msg(count, difficulty)
 		case 0: skill = "Easy"
 		case 1: skill = "Normal"
 		case 2: skill = "Hard"
-		case 3: skill = "Expert"
-		default: skill = "Elite"
+		default: skill = "Expert"
 	}
 	// Get team
 	new color = 0
@@ -229,24 +243,11 @@ public kill_all_players()
 
 public spawn_count()
 {
-	// Get spawn points count
-	new Tspawns = 0
-	new CTspawns = 0
-	new entity = 0
-	// Count T spawn points
-	Tspawns = 0
-	while ((entity = find_ent_by_class(entity, "info_player_deathmatch")))
-		Tspawns++
-	// Count CT spawn points
-	entity = 0
-	CTspawns = 0
-	while ((entity = find_ent_by_class(entity, "info_player_start")))
-		CTspawns++
 	// Get map name
 	new map[64]
 	get_mapname(map, sizeof (map))
 	// Print spawns
-	server_print("%s T:%i CT:%i", map, Tspawns, CTspawns)
+	server_print("%s T:%i CT:%i", map, get_member_game(m_iSpawnPointCount_Terrorist), get_member_game(m_iSpawnPointCount_CT))
 }
 
 public get_career_difficulty()
