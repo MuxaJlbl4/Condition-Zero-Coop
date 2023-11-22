@@ -6,6 +6,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
+  
 Automatically added 2 easy bots (`bots_per_player_easy 2`)
 
 ## Features
