@@ -6,7 +6,7 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"1.2"
+#define VERSION	"1.3"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
@@ -30,6 +30,7 @@ public plugin_init()
 		register_cvar("bots_per_player_hard", "3")
 		register_cvar("bots_per_player_expert", "2")
 		register_cvar("motd_restart", "1")
+		register_cvar("simple_survival", "1")
 		
 		// Hide match end message
 		// push 0; push 0; push ?gmsgCZCareer@@3HA; -> jmp +B5
@@ -132,7 +133,7 @@ public OnUTIL_CareerDPrintf(pszMsg, ...)
 public OnHandleEvent(pThisObject, event, pAttacker, pVictim)
 {
 	// Only for Career Mode
-	if (get_member_game(m_bInCareerGame))
+	if (get_member_game(m_bInCareerGame) && get_cvar_num("simple_survival"))
 	{
 		// If EVENT_DIE
 		if (event == 49)
