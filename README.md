@@ -7,7 +7,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
   
-Automatically added 2 easy bots (`bots_per_player_easy 2`)
+Automatically added 2 easy bots (CVar `bots_per_player_easy 2`)
 
 ## Features
 - 🎮 Maximum slots and spawns for extra players
@@ -35,7 +35,8 @@ Automatically added 2 easy bots (`bots_per_player_easy 2`)
 | bots_per_player_normal | 4 | Extra bots on player join (for **normal** campaign) |
 | bots_per_player_hard | 3 | Extra bots on player join (for **hard** campaign) |
 | bots_per_player_expert | 2 | Extra bots on player join (for **expert** campaign) |
-| motd_restart | 1 | Show MotD on round restart (1 - **on**; 0 - **off**) |
+| motd_restart | 1 | Show MotD on mission restart (**1** - **on**; **0** - **off**) |
+| simple_survival | 1 | Simplified survival and in-a-row tasks. Task fails when: <br>**1** - **all** players are dead; **0** - **any** player is dead |
 
 ## Commands
 | Command | Description |
