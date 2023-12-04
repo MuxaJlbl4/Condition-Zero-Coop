@@ -6,7 +6,7 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"1.3"
+#define VERSION	"1.4"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
@@ -254,7 +254,7 @@ public spawn_count()
 public get_career_difficulty()
 {
 	// Get career difficulty from GameUI.dll
-	new offsets[2] = {0x04, 0x18}
+	new offsets[1] = {0xF0}
 	return get_value_by_pointers(OrpheuMemoryGet("CareerDifficultyBase"), offsets, sizeof offsets)
 }
 

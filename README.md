@@ -49,7 +49,8 @@ Many GoldSrc mods, Counter-Strike included, may still have compatibility issues 
 
 ## Notes
 - 📝 Adjust settings and difficulty balance via [coop.cfg](czero/coop.cfg)
-- 🪟 Tested with Windows [Aug 2020 Steam version](https://steamcommunity.com/games/80/announcements/detail/2773608655118460844)
+- 🪟 Compatible with Windows Steam [25th Anniversary Update](https://half-life.com/en/halflife25) version
+- ⏳ Latest compatible version for **Beta - SteamPipe** and **Pre-25th** builds - [1.3.0](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/tag/1.3.0)
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
 - 🟣 Steam guides: [Eng](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485); [Rus](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
 
@@ -67,7 +68,7 @@ Many GoldSrc mods, Counter-Strike included, may still have compatibility issues 
 	- [ReAPI AMXX](https://github.com/s1lentq/reapi/releases/latest)
 	- [Orpheu](https://github.com/Arkshine/Orpheu/releases/latest)
 2. Copy (with replace) repository content to your `Half-Life` folder
-3. Replace hex bytes `08 83 FE 01 7D 05 BE 01` to `08 EB 03 90 90 90 BE 20` in your `Half-Life\hw.dll` file
+3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
 4. Launch `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat` to compile [Autospawnpoints](https://dev-cs.ru/resources/1253) plugin
 5. Launch `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat` to compile [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) plugin
 6. Compile `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php)

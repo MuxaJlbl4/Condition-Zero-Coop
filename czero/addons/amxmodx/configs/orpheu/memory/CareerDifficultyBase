@@ -9,8 +9,8 @@
 				"os"			: "windows",
 				"mod"			: "cstrike",
 				"value"			: [0x4D,0x5A],
-				"info" 			: "Career difficulty base (GameUI.dll address from hw.dll)",
-				"displacement"	: 1470280
+				"info" 			: "Career difficulty base (hw.dll+63D27C)",
+				"displacement"	: 6541948
 			}
 	]
 }
