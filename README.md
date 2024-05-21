@@ -6,8 +6,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
-  
-Automatically added 2 easy bots (CVar `bots_per_player_easy 2`)
+- + Extra bots on player join
 
 ## Features
 - 🎮 Maximum slots and spawns for extra players
@@ -31,10 +30,7 @@ Automatically added 2 easy bots (CVar `bots_per_player_easy 2`)
 ## CVars
 | CVar | Default Value | Description |
 | ---- | ------------- | ----------- |
-| bots_per_player_easy | 5 | Extra bots on player join (for **easy** campaign) |
-| bots_per_player_normal | 4 | Extra bots on player join (for **normal** campaign) |
-| bots_per_player_hard | 3 | Extra bots on player join (for **hard** campaign) |
-| bots_per_player_expert | 2 | Extra bots on player join (for **expert** campaign) |
+| bots_per_player | 3 | Extra bots on player join |
 | motd_restart | 1 | Show MotD on mission restart (**1** - **on**; **0** - **off**) |
 | simple_survival | 1 | Simplified survival and in-a-row tasks. Task fails when: <br>**1** - **all** players are dead; **0** - **any** player is dead |
 
@@ -43,9 +39,6 @@ Automatically added 2 easy bots (CVar `bots_per_player_easy 2`)
 | ------- | ----------- |
 | map_info | Show map name and spawn count |
 | player_kill | Kill all players (non-bots) |
-
-## Note from Valve
-Many GoldSrc mods, Counter-Strike included, may still have compatibility issues with the [updated version of the Half-Life engine](https://half-life.com/en/halflife25). While we work on improving mod support it is advisable to install the beta "steam_legacy" build of Half-Life (which can be selected in the game's properties page) when playing mods.
 
 ## Notes
 - 📝 Adjust settings and difficulty balance via [coop.cfg](czero/coop.cfg)
@@ -63,9 +56,9 @@ Many GoldSrc mods, Counter-Strike included, may still have compatibility issues 
 1. Install:
 	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80)
 	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS/releases/latest)
-	- [Metamod-P](https://github.com/Bots-United/metamod-p/releases/latest)
-	- [AMX Mod X 1.10.0 (Base Package)](https://www.amxmodx.org/downloads-new.php?branch=master)
-	- [ReAPI AMXX](https://github.com/s1lentq/reapi/releases/latest)
+	- [Metamod-R](https://github.com/theAsmodai/metamod-r/releases/latest)
+	- [AMX Mod X (Base Package)](https://www.amxmodx.org/downloads-new.php?branch=master)
+	- [ReAPI](https://github.com/s1lentq/reapi/releases/latest)
 	- [Orpheu](https://github.com/Arkshine/Orpheu/releases/latest)
 2. Copy (with replace) repository content to your `Half-Life` folder
 3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
@@ -74,4 +67,4 @@ Many GoldSrc mods, Counter-Strike included, may still have compatibility issues 
 6. Compile `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php)
 
 ## Special Thanks
-[Arkshine](https://github.com/Arkshine) · [dystopm](https://github.com/dystopm) · [fl0werD](https://github.com/fl0werD) · [iPlague](https://roadtoglory.ru/profile?id=1) · [jkivilin](https://github.com/jkivilin) · [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878) · [s1lentq](https://github.com/s1lentq) · [Vaqtincha](https://github.com/Vaqtincha) · [wopox1337](https://github.com/wopox1337)
+[Arkshine](https://github.com/Arkshine) · [dystopm](https://github.com/dystopm) · [fl0werD](https://github.com/fl0werD) · [iPlague](https://roadtoglory.ru/profile?id=1) · [jkivilin](https://github.com/jkivilin) · [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878) · [s1lentq](https://github.com/s1lentq) · [theAsmodai](https://github.com/theAsmodai) · [Vaqtincha](https://github.com/Vaqtincha) · [wopox1337](https://github.com/wopox1337)

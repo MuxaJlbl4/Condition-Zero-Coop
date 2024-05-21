@@ -1,10 +1,9 @@
 #define MyAppName "Counter-Strike Condition Zero Cooperative Patch"
-#define MyAppVersion "1.4.1"
+#define MyAppVersion "1.5.2"
 #define MyAppPublisher "MuLLlaH9!"
 #define MyAppURL "https://github.com/MuxaJlbl4/Condition-Zero-Coop"
 
 [Setup]
-AppId={{CBBEE0B3-3F9D-4EF2-90AE-09AD26BCB142}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -26,12 +25,10 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "czero\addons\*"; DestDir: "{app}\czero\addons"; Excludes: "cmdaccess.ini,logs"; Flags: ignoreversion recursesubdirs
+Source: "czero\addons\*"; DestDir: "{app}\czero\addons"; Excludes: "cmdaccess.ini,logs,podbot,yapb,*.so,*.bat"; Flags: ignoreversion recursesubdirs
 Source: "czero\BotCampaignProfile.db"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\coop.cfg"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\dlls\mp.dll"; DestDir: "{app}\czero\dlls"; Flags: ignoreversion
-Source: "czero\game.cfg"; DestDir: "{app}\czero"; Flags: ignoreversion
-Source: "czero\game_init.cfg"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\liblist.gam"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\restart.html"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "hw.dll"; DestDir: "{app}"; Flags: ignoreversion

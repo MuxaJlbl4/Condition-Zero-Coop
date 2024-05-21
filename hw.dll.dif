@@ -1,11 +1,11 @@
 This difference file was created by IDA
 
-hw.dll (Half-Life 01 Dec 2023)
-001DCA9D: 3B BE
-001DCA9E: F0 20
-001DCA9F: 0F 00
-001DCAA0: 4C 00
-001DCAA1: F0 00
+hw.dll (Half-Life 22 Dec 2023)
+001DCB6D: 3B BE
+001DCB6E: F0 20
+001DCB6F: 0F 00
+001DCB70: 4C 00
+001DCB71: F0 00
 
 hw.dll (Half-Life 20 Aug 2020)
 00069498: 83 EB

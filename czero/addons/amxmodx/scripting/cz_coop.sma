@@ -6,7 +6,7 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"1.4"
+#define VERSION	"1.5"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
@@ -25,10 +25,7 @@ public plugin_init()
 	if (get_member_game(m_bInCareerGame))
 	{
 		// Plugin CVars
-		register_cvar("bots_per_player_easy", "5")
-		register_cvar("bots_per_player_normal", "4")
-		register_cvar("bots_per_player_hard", "3")
-		register_cvar("bots_per_player_expert", "2")
+		register_cvar("bots_per_player", "3")
 		register_cvar("motd_restart", "1")
 		register_cvar("simple_survival", "1")
 		
@@ -87,7 +84,7 @@ public OnUTIL_CareerDPrintf(pszMsg, ...)
 {	
 	// Get default team
 	new team[64]
-	get_pcvar_string(get_cvar_pointer("humans_join_team"), team, 63)
+	get_pcvar_string(get_cvar_pointer("humans_join_team"), team, charsmax(team))
 	// Get winner team
 	new winteam[64]
 	if (get_member_game(m_iNumCTWins) > get_member_game(m_iNumTerroristWins))
@@ -163,36 +160,23 @@ public client_putinserver(id)
 		{
 			// Get player name
 			new name[64]
-			get_user_name(id, name, 63)
+			get_user_name(id, name, charsmax(name))
 			// Print player name
 			client_print_color(0, print_team_default, "^3%s ^1joined the game", name)
 			// Add extra bots
-			new i = 0
-			new difficulty = get_cvar_num("bot_difficulty")
-			switch (difficulty)
+			new team[64]
+			get_pcvar_string(get_cvar_pointer("humans_join_team"), team, charsmax(team))
+			new addbots = get_cvar_num("bots_per_player")
+			for (new i = 0; i < addbots; i++)
 			{
-				case 0: i = get_cvar_num("bots_per_player_easy")
-				case 1: i = get_cvar_num("bots_per_player_normal")
-				case 2: i = get_cvar_num("bots_per_player_hard")
-				case 3: i = get_cvar_num("bots_per_player_expert")
-				default: i = 0
+				// Add extra bots to opposite team
+				if (!strcmp(team, "CT"))
+					server_cmd("bot_add_t")
+				else
+					server_cmd("bot_add_ct")
 			}
-			if (i)
-			{
-				// Get default team
-				new team[64]
-				get_pcvar_string(get_cvar_pointer("humans_join_team"), team, 63)
-				extra_bots_msg(i, difficulty)
-				while (i)
-				{
-					// Add extra bots to opposite team
-					if (!strcmp(team, "CT"))
-						server_cmd("bot_add_t")
-					else
-						server_cmd("bot_add_ct")
-					i--
-				}
-			}
+			if (addbots)
+				extra_bots_msg(addbots, get_cvar_num("bot_difficulty"))
 		}
 	}
 }
@@ -214,7 +198,7 @@ public extra_bots_msg(count, difficulty)
 	}
 	// Get team
 	new color = 0
-	get_pcvar_string(get_cvar_pointer("humans_join_team"), playerteam, 63)
+	get_pcvar_string(get_cvar_pointer("humans_join_team"), playerteam, charsmax(playerteam))
 	if (!strcmp(playerteam, "CT"))
 	{
 		botteam = "T"
