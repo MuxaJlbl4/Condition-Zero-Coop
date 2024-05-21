@@ -6,7 +6,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
-- + Extra bots on player join
+- Added extra bots on player join
 
 ## Features
 - 🎮 Maximum slots and spawns for extra players
@@ -29,7 +29,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 
 ## CVars
 | CVar | Default Value | Description |
-| ---- | ------------- | ----------- |
+| ---- | :-----------: | ----------- |
 | bots_per_player | 3 | Extra bots on player join |
 | motd_restart | 1 | Show MotD on mission restart (**1** - **on**; **0** - **off**) |
 | simple_survival | 1 | Simplified survival and in-a-row tasks. Task fails when: <br>**1** - **all** players are dead; **0** - **any** player is dead |
@@ -43,7 +43,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 ## Notes
 - 📝 Adjust settings and difficulty balance via [coop.cfg](czero/coop.cfg)
 - 🪟 Compatible with Windows Steam [25th Anniversary Update](https://half-life.com/en/halflife25) version
-- ⏳ Latest compatible version for **Beta - SteamPipe** and **Pre-25th** builds - [1.3.0](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/tag/1.3.0)
+- ⏳ Latest compatible version for **Beta-SteamPipe** and **Pre-25th** builds - [1.3.0](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/tag/1.3.0)
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
 - 🟣 Steam guides: [Eng](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485); [Rus](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
 
