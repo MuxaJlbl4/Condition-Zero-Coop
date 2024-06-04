@@ -6,11 +6,14 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"1.5"
+#define VERSION	"2.6"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
 new WinMsg = 0
+new default_team[64] = ""
+
+#define DELAY	5.0
 
 public plugin_init()
 {
@@ -25,8 +28,10 @@ public plugin_init()
 	if (get_member_game(m_bInCareerGame))
 	{
 		// Plugin CVars
+		register_cvar("bots_custom_ai", "0")
 		register_cvar("bots_per_player", "3")
 		register_cvar("motd_restart", "1")
+		register_cvar("simple_hostages", "1")
 		register_cvar("simple_survival", "1")
 		
 		// Hide match end message
@@ -60,6 +65,22 @@ public plugin_init()
 		new OrpheuFunction:HandleEvent = OrpheuGetFunction("HandleEvent", "CCareerTaskManager")
 		OrpheuRegisterHook(HandleEvent, "OnHandleEvent")
 		
+		// Hook bot addition
+		new OrpheuFunction:BotAddCommand = OrpheuGetFunction("BotAddCommand", "CCSBotManager")
+		OrpheuRegisterHook(BotAddCommand, "OnBotAddCommand")
+		
+		// Hook HandleEnemyKill
+		new OrpheuFunction:HandleEnemyKill = OrpheuGetFunction("HandleEnemyKill", "CCareerTaskManager")
+		OrpheuRegisterHook(HandleEnemyKill, "OnHandleEnemyKill")
+		
+		// Hook HandleEnemyInjury
+		new OrpheuFunction:HandleEnemyInjury = OrpheuGetFunction("HandleEnemyInjury", "CCareerTaskManager")
+		OrpheuRegisterHook(HandleEnemyInjury, "OnHandleEnemyInjury")
+		
+		// Hook MakeBomber
+		if (get_member_game(m_bMapHasBombTarget))
+			RegisterHookChain(RG_CBasePlayer_MakeBomber, "CBasePlayer_MakeBomber")
+		
 		// Get career difficulty
 		set_cvar_num("bot_difficulty", get_career_difficulty())
 		
@@ -68,10 +89,64 @@ public plugin_init()
 	}
 }
 
+public OrpheuHookReturn:OnBotAddCommand(pThisObject, team, isFromConsole)
+{
+	if (get_cvar_num("bots_custom_ai"))
+	{
+		new bot_team[64]
+		
+		// Get bot team
+		if (team)
+			bot_team = "CT"
+		else
+			bot_team = "T"
+		
+		// If bot team is default
+		if (!strcmp(get_default_team_str(), bot_team))
+		{
+			// Create teammates after all opponents
+			set_task(DELAY, "DelayedBotCreate")
+		}
+		else
+		{
+			// Create opponents (requires some time)
+			server_cmd("humans_join_team %s", bot_team)
+			server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
+		}		
+		OrpheuSetReturn(true)
+		return OrpheuSupercede
+	}
+	return OrpheuIgnored
+}
+
+public DelayedBotCreate()
+{
+	server_cmd("humans_join_team %s", get_default_team_str())
+	server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
+}
+
+public OrpheuHookReturn:OnHandleEnemyKill(pThisObject, wasBlind, weaponName, headshot, killerHasShield, pAttacker, pVictim)
+{
+	// Exclude YaPB bots
+	if (is_user_bot(pVictim)) // last 2 param swapped to match function definition (ReGameDLL_CS)
+		return OrpheuSupercede
+	return OrpheuIgnored
+}
+
+public OrpheuHookReturn:OnHandleEnemyInjury(pThisObject, weaponName, attackerHasShield, pAttacker)
+{
+	// Exclude YaPB bots
+	if (is_user_bot(pAttacker))
+		return OrpheuSupercede
+	return OrpheuIgnored
+}
+
 public OnSV_Career_EndRound_f()
 {
-	// Kill all alive players
-	kill_all_players()
+	// Kill default team
+	for (new i = 0; i < MaxClients; i++)
+		if (is_user_alive(i) && get_member(i, m_iTeam) == get_default_team())
+			user_kill(i)
 }
 
 public OnAreAllTasksComplete(...)
@@ -80,7 +155,7 @@ public OnAreAllTasksComplete(...)
 	server_cmd("career_continue")
 }
 
-public OnUTIL_CareerDPrintf(pszMsg, ...)
+public OnUTIL_CareerDPrintf(...)
 {	
 	// Get default team
 	new team[64]
@@ -127,10 +202,22 @@ public OnUTIL_CareerDPrintf(pszMsg, ...)
 	}
 }
 
-public OnHandleEvent(pThisObject, event, pAttacker, pVictim)
+public OrpheuHookReturn:OnHandleEvent(pThisObject, event, pAttacker, pVictim)
 {
-	// Only for Career Mode
-	if (get_member_game(m_bInCareerGame) && get_cvar_num("simple_survival"))
+	// Simple hostages
+	if (get_cvar_num("simple_hostages"))
+	{
+		// If EVENT_HOSTAGE_RESCUED or EVENT_ALL_HOSTAGES_RESCUED
+		if (event == 32 || event == 33)
+			return OrpheuIgnored
+	}
+	
+	// Exclude YaPB bots
+	if (is_user_bot(pAttacker))
+		return OrpheuSupercede
+	
+	// Simple survival
+	if (get_cvar_num("simple_survival"))
 	{
 		// If EVENT_DIE
 		if (event == 49)
@@ -140,8 +227,22 @@ public OnHandleEvent(pThisObject, event, pAttacker, pVictim)
 			get_players(players, players_alive, "ca")
 			// Change event to skip task fail
 			if (players_alive)
-				OrpheuSetParam(2, 0)
+				return OrpheuSupercede
 		}
+	}
+	
+	return OrpheuIgnored
+}
+
+public CBasePlayer_MakeBomber()
+{
+	// Exclude YaPB bombers
+	if (get_default_team() == TEAM_TERRORIST && get_cvar_num("bots_custom_ai"))
+	{
+		// Get players
+		new players[32], player_count
+		get_players(players, player_count, "c")
+		SetHookChainArg(1, ATYPE_INTEGER, players[random(player_count)]);
 	}
 }
 
@@ -158,19 +259,19 @@ public client_putinserver(id)
 		// Check client
 		if (player_count > 1 && !is_user_bot(id))
 		{
-			// Get player name
+			// Check default team
+			if (get_default_team() != get_member(id, m_iTeam))
+				rg_join_team(id, get_default_team())
+			// Print joined player name
 			new name[64]
 			get_user_name(id, name, charsmax(name))
-			// Print player name
 			client_print_color(0, print_team_default, "^3%s ^1joined the game", name)
 			// Add extra bots
-			new team[64]
-			get_pcvar_string(get_cvar_pointer("humans_join_team"), team, charsmax(team))
 			new addbots = get_cvar_num("bots_per_player")
 			for (new i = 0; i < addbots; i++)
 			{
 				// Add extra bots to opposite team
-				if (!strcmp(team, "CT"))
+				if (get_default_team() == TEAM_CT)
 					server_cmd("bot_add_t")
 				else
 					server_cmd("bot_add_ct")
@@ -185,21 +286,30 @@ public extra_bots_msg(count, difficulty)
 {
 	// Create bot message
 	new s = ' '
+	new ai[64]
 	new skill[64]
 	new botteam[64]
-	new playerteam[64]
 	// Get difficulty
-	switch (difficulty)
-	{
-		case 0: skill = "Easy"
-		case 1: skill = "Normal"
-		case 2: skill = "Hard"
-		default: skill = "Expert"
-	}
+	if (get_cvar_num("bots_custom_ai"))
+		switch (difficulty)
+		{
+			case 0: skill = "Newbie"
+			case 1: skill = "Average"
+			case 2: skill = "Normal"
+			case 3: skill = "Professional"
+			default: skill = "Godlike"
+		}
+	else
+		switch (difficulty)
+		{
+			case 0: skill = "Easy"
+			case 1: skill = "Normal"
+			case 2: skill = "Hard"
+			default: skill = "Expert"
+		}
 	// Get team
 	new color = 0
-	get_pcvar_string(get_cvar_pointer("humans_join_team"), playerteam, charsmax(playerteam))
-	if (!strcmp(playerteam, "CT"))
+	if (get_default_team() == TEAM_CT)
 	{
 		botteam = "T"
 		color = print_team_red
@@ -212,8 +322,13 @@ public extra_bots_msg(count, difficulty)
 	// Count check
 	if (count > 1)
 		s = 's'
+	// Get AI
+	if (get_cvar_num("bots_custom_ai"))
+		ai = "YaPB"
+	else
+		ai = "zBot"
 	// Print info
-	client_print_color(0, color, "^4+%d ^3%s %s Bot%c", count, skill, botteam, s)
+	client_print_color(0, color, "^4+%d ^3%s %s Bot%c ^1[%s]", count, skill, botteam, s, ai)
 }
 
 public kill_all_players()
@@ -230,9 +345,26 @@ public spawn_count()
 {
 	// Get map name
 	new map[64]
-	get_mapname(map, sizeof (map))
+	get_mapname(map, sizeof map)
 	// Print spawns
 	server_print("%s T:%i CT:%i", map, get_member_game(m_iSpawnPointCount_Terrorist), get_member_game(m_iSpawnPointCount_CT))
+}
+
+public TeamName:get_default_team()
+{
+	if (!strcmp(get_default_team_str(), "T"))
+		return TEAM_TERRORIST
+	else
+		return TEAM_CT
+	
+}
+
+public get_default_team_str()
+{
+	// Update humans_join_team (too early for init)
+	if (!strcmp(default_team, ""))
+		get_pcvar_string(get_cvar_pointer("humans_join_team"), default_team, charsmax(default_team))
+	return default_team
 }
 
 public get_career_difficulty()

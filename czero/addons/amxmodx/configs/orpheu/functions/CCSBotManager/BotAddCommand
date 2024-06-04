@@ -1,0 +1,29 @@
+{
+	"name"		: "BotAddCommand",
+	"class"		: "CCSBotManager",
+	"library"	: "mod",
+	"arguments"	: 
+	[
+		{
+			"type"	: "int",
+			"info"	: "team"
+		},
+		{
+			"type"	: "qboolean",
+			"info"	: "isFromConsole"
+		}
+	],
+	"return" : 
+	{
+			"type" : "qboolean"
+	},
+	"identifiers"	: 
+	[
+		{
+			"os"	: "windows",
+			"mod"	: "cstrike",
+			"value"	: [0x55,0x8B,0xEC,0x80,0x3D,"*","*","*","*",0x00,0x53,0x56,0x74],
+			"info"	: "regamedll 5.20.0.498+"
+		}
+	]
+}

@@ -1,5 +1,5 @@
 #define MyAppName "Counter-Strike Condition Zero Cooperative Patch"
-#define MyAppVersion "1.5.2"
+#define MyAppVersion "2.6.2"
 #define MyAppPublisher "MuLLlaH9!"
 #define MyAppURL "https://github.com/MuxaJlbl4/Condition-Zero-Coop"
 
@@ -25,7 +25,7 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "czero\addons\*"; DestDir: "{app}\czero\addons"; Excludes: "cmdaccess.ini,logs,podbot,yapb,*.so,*.bat"; Flags: ignoreversion recursesubdirs
+Source: "czero\addons\*"; DestDir: "{app}\czero\addons"; Excludes: "cmdaccess.ini,logs,*.so,*.bat,*.pmx,*.prc,*.vis"; Flags: ignoreversion recursesubdirs
 Source: "czero\BotCampaignProfile.db"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\coop.cfg"; DestDir: "{app}\czero"; Flags: ignoreversion
 Source: "czero\dlls\mp.dll"; DestDir: "{app}\czero\dlls"; Flags: ignoreversion
