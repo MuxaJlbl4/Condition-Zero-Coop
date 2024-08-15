@@ -6,14 +6,14 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"2.6"
+#define VERSION	"2.7"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
 new WinMsg = 0
 new default_team[64] = ""
-
-#define DELAY	5.0
+new BotRejoin = 0
+#define TASK	0.5
 
 public plugin_init()
 {
@@ -84,7 +84,10 @@ public plugin_init()
 		// Get career difficulty
 		set_cvar_num("bot_difficulty", get_career_difficulty())
 		
-		// Additional tweaks and fixes
+		// Additional cmd tweaks and fixes for carrer mode
+		server_cmd("exec carrer.cfg")
+		
+		// Load custom cvar values
 		server_cmd("exec coop.cfg")
 	}
 }
@@ -93,43 +96,34 @@ public OrpheuHookReturn:OnBotAddCommand(pThisObject, team, isFromConsole)
 {
 	if (get_cvar_num("bots_custom_ai"))
 	{
-		new bot_team[64]
+		// Create YaPB bot
+		server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
 		
 		// Get bot team
+		new bot_team[64]
 		if (team)
 			bot_team = "CT"
 		else
 			bot_team = "T"
 		
-		// If bot team is default
-		if (!strcmp(get_default_team_str(), bot_team))
-		{
-			// Create teammates after all opponents
-			set_task(DELAY, "DelayedBotCreate")
-		}
-		else
-		{
-			// Create opponents (requires some time)
-			server_cmd("humans_join_team %s", bot_team)
-			server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
-		}		
+		// If bot team is NOT default
+		if (strcmp(get_default_team_str(), bot_team))
+			BotRejoin++
+		
 		OrpheuSetReturn(true)
 		return OrpheuSupercede
 	}
 	return OrpheuIgnored
 }
 
-public DelayedBotCreate()
-{
-	server_cmd("humans_join_team %s", get_default_team_str())
-	server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
-}
-
 public OrpheuHookReturn:OnHandleEnemyKill(pThisObject, wasBlind, weaponName, headshot, killerHasShield, pAttacker, pVictim)
 {
-	// Exclude YaPB bots
-	if (is_user_bot(pVictim)) // last 2 param swapped to match function definition (ReGameDLL_CS)
+	// Exclude YaPB bots (pVictim is pAttacker)
+	if (is_user_bot(pVictim))
 		return OrpheuSupercede
+	// Flash task fix for YaPB (pAttacker is pVictim)
+	if (Float:get_member(pAttacker, m_blindStartTime) + Float:get_member(pAttacker, m_blindFadeTime) - 6.0 > get_gametime())
+		OrpheuSetParam(2, true)
 	return OrpheuIgnored
 }
 
@@ -230,7 +224,6 @@ public OrpheuHookReturn:OnHandleEvent(pThisObject, event, pAttacker, pVictim)
 				return OrpheuSupercede
 		}
 	}
-	
 	return OrpheuIgnored
 }
 
@@ -242,7 +235,7 @@ public CBasePlayer_MakeBomber()
 		// Get players
 		new players[32], player_count
 		get_players(players, player_count, "c")
-		SetHookChainArg(1, ATYPE_INTEGER, players[random(player_count)]);
+		SetHookChainArg(1, ATYPE_INTEGER, players[random(player_count)])
 	}
 }
 
@@ -278,6 +271,30 @@ public client_putinserver(id)
 			}
 			if (addbots)
 				extra_bots_msg(addbots, get_cvar_num("bot_difficulty"))
+		}
+		// Balance task for YaPB
+		if (get_cvar_num("bots_custom_ai") && is_user_bot(id) && BotRejoin)
+			set_task (TASK, "BotRejoinTeam")
+	}
+}
+
+public BotRejoinTeam()
+{
+	// Get bots
+	new bots[32], bot_count
+	get_players(bots, bot_count, "d")
+	for (new i = 0; i < bot_count; i++)
+	{
+		// Check availability after task delay
+		if (BotRejoin && is_user_connected(bots[i]) && get_default_team() == get_member(bots[i], m_iTeam))
+		{
+			// Change bot team
+			if (get_default_team() == TEAM_CT)
+				rg_join_team(bots[i], TEAM_TERRORIST)
+			else
+				rg_join_team(bots[i], TEAM_CT)
+			BotRejoin--
+			return
 		}
 	}
 }
@@ -369,7 +386,7 @@ public get_default_team_str()
 
 public get_career_difficulty()
 {
-	// Get career difficulty from GameUI.dll
+	// Get career difficulty from GameUI.dll (cl_carrer_difficulty)
 	new offsets[1] = {0xF0}
 	return get_value_by_pointers(OrpheuMemoryGet("CareerDifficultyBase"), offsets, sizeof offsets)
 }

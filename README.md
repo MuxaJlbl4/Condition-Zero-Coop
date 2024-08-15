@@ -31,21 +31,28 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - **Teammates**: Connect to Admin by `connect <IP>` or `Find Servers -> Lan`
 
 ## CVars
-All variables should be configured via [coop.cfg](czero/coop.cfg) file:
+All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 
+### Variables
 | CVar | Default Value | Description |
 | ---- | :-----------: | ----------- |
-| bots_custom_ai | 0 | Custom bots AI:<br>**1** - **YaPB**; **0** - **zBot** (default AI) |
-| bots_per_player | 3 | Extra bots on player join<br>Adds the specified number of enemy bots with campaign difficulty skill |
-| motd_restart | 1 | Show MotD on mission restart<br>**1** - **on**; **0** - **off** |
-| simple_hostages | 1 | Hostage tasks can be completed by:<br>**1** - **players & YaPB** bots; **0** - **players** only |
-| simple_survival | 1 | Simplified survival and in-a-row tasks. Task fails when:<br>**1** - **all** players are dead; **0** - **any** player is dead |
+| `bots_custom_ai` | 0 | Custom bots AI:<br>**1** - **YaPB**; **0** - **zBot** (default AI) |
+| `bots_per_player` | 3 | Extra bots on player join<br>Adds the specified number of enemy bots with campaign difficulty skill |
+| `motd_restart` | 1 | Show MotD on mission restart:<br>**1** - **on**; **0** - **off** |
+| `simple_hostages` | 1 | Hostage tasks can be completed by:<br>**1** - **players & YaPB** bots; **0** - **players** only |
+| `simple_survival` | 1 | Simplified survival and in-a-row tasks. Task fails when:<br>**1** - **all** players are dead; **0** - **any** player is dead |
 
-## Commands
+### Auxiliary
+| CVar | Description |
+| ---- | ----------- |
+| `bot_difficulty` | Extra bots and YaPB difficulty:<br>**0** - **Easy/Newbie**; **1** - **Medium/Average**; **2** - **Hard/Normal**;<br>**3** - **Expert/Professional**; **4** - **Expert/Godlike (YaPB)** |
+| `mp_friendlyfire` | Allow friendly fire:<br>**1** - **on**; **0** - **off** |
+
+### Commands
 | Command | Description |
 | ------- | ----------- |
-| map_info | Show map name and spawn count |
-| player_kill | Kill all players (non-bots) |
+| `map_info` | Show map name and spawn count |
+| `player_kill` | Kill all players (non-bots) |
 
 ## Notes
 - 🪟 Compatible with Windows Steam [25th Anniversary Update](https://half-life.com/en/halflife25) version
@@ -63,7 +70,7 @@ All variables should be configured via [coop.cfg](czero/coop.cfg) file:
 	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) - Clean **Base** Steam version
 	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS/actions) - [**Release Play** version*](# "Actions -> Run -> Artifacts -> win32 -> tests -> mp.dll
 or build Release Play manually with Visual Studio 2015 Update 3")
-	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - **Base Package**
+	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - Base Package + Counter-Strike
 	- [Metamod-R](https://github.com/theAsmodai/metamod-r/releases/latest)
 	- [Orpheu](https://github.com/Arkshine/Orpheu/releases/latest)
 	- [ReAPI](https://github.com/s1lentq/reapi/releases/latest)
