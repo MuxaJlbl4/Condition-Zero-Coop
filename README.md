@@ -19,12 +19,13 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - 🎫 Fixed restart and continue messages
 - 🧊 Decreased freeze time
 - 🔦 Enabled flashlights
+- 🦘 No jump slowdown
 - 🗝️ No passwords
 - ⏳ No pauses
 
 ## Requirements
 - [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) for all teammates
-- **LAN connection** with your teammates (physical or VPN)
+- **LAN connection** with your teammates (physical or virtual)
 
 ## Installation and Usage
 - **Admin**: Install [Condition-Zero-Coop.exe](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/latest) to your **Half-Life** folder and start any career mission
@@ -65,11 +66,10 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 - 👀 Teammates can't view tasks
 - 👯‍♀ Max players = 32
 
-## Building
+## Manual Building
 1. Install:
 	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) - Clean **Base** Steam version
-	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS/actions) - [**Release Play** version*](# "Actions -> Run -> Artifacts -> win32 -> tests -> mp.dll
-or build Release Play manually with Visual Studio 2015 Update 3")
+	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS/releases/tag/5.26.0.668) - [**Release Play** version*](# "Build Release Play version with Visual Studio 2015 Update 3")
 	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - Base Package + Counter-Strike
 	- [Metamod-R](https://github.com/theAsmodai/metamod-r/releases/latest)
 	- [Orpheu](https://github.com/Arkshine/Orpheu/releases/latest)
@@ -77,9 +77,21 @@ or build Release Play manually with Visual Studio 2015 Update 3")
 	- [YaPB](https://github.com/yapb/yapb/releases/latest)
 2. Copy (with replace) repository content to your `Half-Life` folder
 3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
-4. Launch `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat` to compile [Autospawnpoints](https://dev-cs.ru/resources/1253) plugin
-5. Launch `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat` to compile [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) plugin
-6. Compile `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make installer
+4. Compile [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
+5. Compile [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
+6. Compile [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
+7. Compile `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make installer
 
 ## Special Thanks
-[Arkshine](https://github.com/Arkshine) · [dystopm](https://github.com/dystopm) · [fl0werD](https://github.com/fl0werD) · [iPlague](https://roadtoglory.ru/profile?id=1) · [jeefo](https://github.com/jeefo) · [jkivilin](https://github.com/jkivilin) · [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878) · [s1lentq](https://github.com/s1lentq) · [theAsmodai](https://github.com/theAsmodai) · [Vaqtincha](https://github.com/Vaqtincha) · [wopox1337](https://github.com/wopox1337)
+- [Arkshine](https://github.com/Arkshine)
+- [dystopm](https://github.com/dystopm)
+- [fl0werD](https://github.com/fl0werD)
+- [iPlague](https://roadtoglory.ru/profile?id=1)
+- [jeefo](https://github.com/jeefo)
+- [jkivilin](https://github.com/jkivilin)
+- [LunaTheReborn](https://forums.alliedmods.net/member.php?u=297878)
+- [s1lentq](https://github.com/s1lentq)
+- [SSX](https://dev-cs.ru/members/228)
+- [theAsmodai](https://github.com/theAsmodai)
+- [Vaqtincha](https://github.com/Vaqtincha)
+- [wopox1337](https://github.com/wopox1337)

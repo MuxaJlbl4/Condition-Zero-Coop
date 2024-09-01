@@ -6,12 +6,11 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"2.7"
+#define VERSION	"2.8"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
 new WinMsg = 0
-new default_team[64] = ""
 new BotRejoin = 0
 #define TASK	0.5
 
@@ -82,10 +81,10 @@ public plugin_init()
 			RegisterHookChain(RG_CBasePlayer_MakeBomber, "CBasePlayer_MakeBomber")
 		
 		// Get career difficulty
-		set_cvar_num("bot_difficulty", get_career_difficulty())
+		set_cvar_num("bot_difficulty", get_cvar_num("cl_career_difficulty"))
 		
-		// Additional cmd tweaks and fixes for carrer mode
-		server_cmd("exec carrer.cfg")
+		// Additional cmd tweaks and fixes for career mode
+		server_cmd("exec career.cfg")
 		
 		// Load custom cvar values
 		server_cmd("exec coop.cfg")
@@ -99,15 +98,15 @@ public OrpheuHookReturn:OnBotAddCommand(pThisObject, team, isFromConsole)
 		// Create YaPB bot
 		server_cmd("yb add %i", get_cvar_num("bot_difficulty"))
 		
-		// Get bot team
-		new bot_team[64]
+		// Convert BotProfileTeamType to TeamName
+		new TeamName:bot_team
 		if (team)
-			bot_team = "CT"
+			bot_team = TEAM_CT
 		else
-			bot_team = "T"
+			bot_team = TEAM_TERRORIST
 		
 		// If bot team is NOT default
-		if (strcmp(get_default_team_str(), bot_team))
+		if (get_default_team() != bot_team)
 			BotRejoin++
 		
 		OrpheuSetReturn(true)
@@ -151,17 +150,14 @@ public OnAreAllTasksComplete(...)
 
 public OnUTIL_CareerDPrintf(...)
 {	
-	// Get default team
-	new team[64]
-	get_pcvar_string(get_cvar_pointer("humans_join_team"), team, charsmax(team))
 	// Get winner team
-	new winteam[64]
+	new TeamName:winteam
 	if (get_member_game(m_iNumCTWins) > get_member_game(m_iNumTerroristWins))
-		winteam = "CT"
+		winteam = TEAM_CT
 	else
-		winteam = "T"
+		winteam = TEAM_TERRORIST
 	// Check victory
-	if (!strcmp(team, winteam))
+	if (get_default_team() == winteam)
 	{
 		if (!WinMsg)
 		{
@@ -193,6 +189,7 @@ public OnUTIL_CareerDPrintf(...)
 			client_print_color(0, print_team_red, "^3Mission Failed! ^4Restarting...")
 		// Force restart
 		server_cmd("career_restart")
+		play_music("train_failure")
 	}
 }
 
@@ -369,37 +366,23 @@ public spawn_count()
 
 public TeamName:get_default_team()
 {
-	if (!strcmp(get_default_team_str(), "T"))
+	// Get humans_join_team (too early for init)
+	new default_team[64]
+	get_pcvar_string(get_cvar_pointer("humans_join_team"), default_team, charsmax(default_team))
+	
+	// Return int
+	if (!strcmp(default_team, "T"))
 		return TEAM_TERRORIST
 	else
 		return TEAM_CT
 	
 }
 
-public get_default_team_str()
+public play_music(name[])
 {
-	// Update humans_join_team (too early for init)
-	if (!strcmp(default_team, ""))
-		get_pcvar_string(get_cvar_pointer("humans_join_team"), default_team, charsmax(default_team))
-	return default_team
-}
-
-public get_career_difficulty()
-{
-	// Get career difficulty from GameUI.dll (cl_carrer_difficulty)
-	new offsets[1] = {0xF0}
-	return get_value_by_pointers(OrpheuMemoryGet("CareerDifficultyBase"), offsets, sizeof offsets)
-}
-
-public get_value_by_pointers(base, offsets[], size)
-{
-	new bytes[4] = {0x00, 0x00, 0x00, 0x00}
-	for (new i = 0; i < size; i++)
-	{
-		// Get value from next pointer
-		OrpheuGetBytesAtAddress(base + offsets[i], bytes, sizeof bytes)
-		// Convert bytes to little-endian int
-		base = bytes[0] + (bytes[1] << 8) + (bytes[2] << 16) + (bytes[3] << 24)
-	}
-	return base
+	// Get players
+	new players[32], player_count
+	get_players(players, player_count, "d")
+	for (new i = 0; i < player_count; i++)
+		client_cmd(i, "mp3 play sound/music/%s.mp3", name)
 }
