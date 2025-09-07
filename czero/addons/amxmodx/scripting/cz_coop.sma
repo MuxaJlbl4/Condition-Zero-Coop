@@ -6,7 +6,7 @@
 #include <orpheu_advanced>
 
 #define PLUGIN	"Condition Zero Coop"
-#define VERSION	"2.8"
+#define VERSION	"2.9"
 #define AUTHOR	"MuLLlaH9!"
 
 new OrpheuHook:HandleUTIL_CareerDPrintf
@@ -142,10 +142,11 @@ public OnSV_Career_EndRound_f()
 			user_kill(i)
 }
 
-public OnAreAllTasksComplete(...)
+public OrpheuHookReturn:OnAreAllTasksComplete(...)
 {
 	// Force next round
 	server_cmd("career_continue")
+	return OrpheuIgnored
 }
 
 public OnUTIL_CareerDPrintf(...)

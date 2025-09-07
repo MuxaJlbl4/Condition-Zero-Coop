@@ -1,5 +1,5 @@
 #define MyAppName "Counter-Strike Condition Zero Cooperative Patch"
-#define MyAppVersion "2.8.2"
+#define MyAppVersion "2.9.3"
 #define MyAppPublisher "MuLLlaH9!"
 #define MyAppURL "https://github.com/MuxaJlbl4/Condition-Zero-Coop"
 

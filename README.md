@@ -17,6 +17,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - ➕ Extra bots addition for each joined player
 - 🍰 Simplified survival and in-a-row tasks
 - 🎫 Fixed restart and continue messages
+- ♟️ Play as bot after death
 - 🧊 Decreased freeze time
 - 🔦 Enabled flashlights
 - 🦘 No jump slowdown
@@ -56,6 +57,7 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 | `player_kill` | Kill all players (non-bots) |
 
 ## Notes
+- ⚡ To play as a bot after player death: switch to spectating for your bot and press **`N`**
 - 🪟 Compatible with Windows Steam [25th Anniversary Update](https://half-life.com/en/halflife25) version
 - ⏳ Latest compatible version for **Beta-SteamPipe** and **Pre-25th** builds - [1.3.0](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/tag/1.3.0)
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
@@ -63,24 +65,27 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 
 ## Limitations
 - 🔄 Mission change requires teammates reconnection
-- 👀 Teammates can't view tasks
+- 👀 Teammates can't view current tasks
 - 👯‍♀ Max players = 32
 
 ## Manual Building
 1. Install:
 	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) - Clean **Base** Steam version
-	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS/releases/tag/5.26.0.668) - [**Release Play** version*](# "Build Release Play version with Visual Studio 2015 Update 3")
+	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS) - [**Release Play** version*](# "Build Release Play version with Visual Studio 2015 Update 3")
 	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - Base Package + Counter-Strike
-	- [Metamod-R](https://github.com/theAsmodai/metamod-r/releases/latest)
-	- [Orpheu](https://github.com/Arkshine/Orpheu/releases/latest)
-	- [ReAPI](https://github.com/s1lentq/reapi/releases/latest)
-	- [YaPB](https://github.com/yapb/yapb/releases/latest)
+	- [Metamod-R](https://github.com/theAsmodai/metamod-r)
+	- [Orpheu](https://github.com/Arkshine/Orpheu)
+	- [ReAPI](https://github.com/rehlds/ReAPI)
+	- [YaPB](https://github.com/yapb/yapb)
 2. Copy (with replace) repository content to your `Half-Life` folder
 3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
-4. Compile [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
-5. Compile [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
-6. Compile [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
-7. Compile `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make installer
+4. Build plugins:
+ - [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
+ - [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
+ - [Bot Features](https://dev-cs.ru/resources/44/) with `Half-Life\czero\addons\amxmodx\scripting\botfeatures.bat`
+ - [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
+5. Check `mp.dll` with `Signatures.asm` and edit **Orpheu** config files if it's required
+6. Build `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make the installer
 
 ## Special Thanks
 - [Arkshine](https://github.com/Arkshine)
