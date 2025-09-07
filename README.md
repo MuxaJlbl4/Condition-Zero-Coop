@@ -80,10 +80,10 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 2. Copy (with replace) repository content to your `Half-Life` folder
 3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
 4. Build plugins:
- - [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
- - [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
- - [Bot Features](https://dev-cs.ru/resources/44/) with `Half-Life\czero\addons\amxmodx\scripting\botfeatures.bat`
- - [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
+	- [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
+	- [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
+	- [Bot Features](https://dev-cs.ru/resources/44/) with `Half-Life\czero\addons\amxmodx\scripting\botfeatures.bat`
+	- [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
 5. Check `mp.dll` with `Signatures.asm` and edit **Orpheu** config files if it's required
 6. Build `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make the installer
 
