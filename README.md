@@ -19,7 +19,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - 🎫 Fixed restart and continue messages
 - ♟️ Play as bot after death
 - 🧊 Decreased freeze time
-- 🔦 Enabled flashlights
+- 🔦 Custom game config
 - 🦘 No jump slowdown
 - 🗝️ No passwords
 - ⏳ No pauses
@@ -33,7 +33,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - **Teammates**: Connect to Admin by `connect <IP>` or `Find Servers -> Lan`
 
 ## CVars
-All settings should be configured via [coop.cfg](czero/coop.cfg) file:
+All plugin settings should be configured via [coop.cfg](czero/coop.cfg) file:
 
 ### Variables
 | CVar | Default Value | Description |
@@ -57,9 +57,10 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 | `player_kill` | Kill all players (non-bots) |
 
 ## Notes
+- ⚙️ Additional settings can be configured via [coop.cfg](czero/coop.cfg) and [game.cfg](czero/game.cfg)
 - ⚡ To play as a bot after player death: switch to spectating for your bot and press **`N`**
-- 🪟 Compatible with Windows Steam [25th Anniversary Update](https://half-life.com/en/halflife25) version
-- ⏳ Latest compatible version for **Beta-SteamPipe** and **Pre-25th** builds - [1.3.0](https://github.com/MuxaJlbl4/Condition-Zero-Coop/releases/tag/1.3.0)
+- 🪟 For latest **[25th Anniversary Update](https://half-life.com/en/halflife25)** - Choose **Steam** installation
+- ⏳ For **Pre-25th Anniversary** builds - Choose **Steam Legacy** installation
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
 - 🟣 Steam guides: [Eng](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485); [Rus](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
 
@@ -70,15 +71,21 @@ All settings should be configured via [coop.cfg](czero/coop.cfg) file:
 
 ## Manual Building
 1. Install:
-	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) - Clean **Base** Steam version
-	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS) - [**Release Play** version*](# "Build Release Play version with Visual Studio 2015 Update 3")
-	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - Base Package + Counter-Strike
+	- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80)
+	- [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS)
 	- [Metamod-R](https://github.com/theAsmodai/metamod-r)
+	- [AMX Mod X](https://www.amxmodx.org/downloads-new.php?branch=master) - Base Package + Counter-Strike
 	- [Orpheu](https://github.com/Arkshine/Orpheu)
 	- [ReAPI](https://github.com/rehlds/ReAPI)
 	- [YaPB](https://github.com/yapb/yapb)
+	For **ReGameDLL_CS** build **Release Play** version with **Visual Studio 2015 Update 3** with changed line in `dlls\globals.cpp`:
+	```
+	cvar_t cv_hostage_ai_enable = { "hostage_ai_enable", "1", 0, 1.0f, nullptr };
+	```
 2. Copy (with replace) repository content to your `Half-Life` folder
-3. Replace hex bytes `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` in your `Half-Life\hw.dll` file
+3. For **maxplayers** patch, replace hex bytes in your `Half-Life\hw.dll` file:
+	- `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` for 25th Anniversary version
+	- `08 83 FE 01 7D 05 BE 01` to `08 EB 03 90 90 90 BE 20` for Pre-25th Anniversary build
 4. Build plugins:
 	- [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
 	- [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
