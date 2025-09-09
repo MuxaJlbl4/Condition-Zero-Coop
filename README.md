@@ -59,9 +59,9 @@ All plugin settings should be configured via [coop.cfg](czero/coop.cfg) file:
 
 ## Notes
 - ⚙️ Additional settings should be configured via [coop.cfg](czero/coop.cfg) and [game.cfg](czero/game.cfg)
-- ⚡ To play as a bot after player death: switch to spectating for your bot and press **`N`**
+- ⚡ To play as a bot: switch to spectating for your bot and press **`N`**
 - 🪟 For latest [25th Anniversary Update](https://half-life.com/en/halflife25) - Choose **Steam** installation
-- ⏳ For [Pre-25th Anniversary](https://steamdb.info/app/80/depots/?branch=steam_legacy) builds - Choose **Steam Legacy** installation
+- ⏳ For [Pre-25th Anniversary](https://steamdb.info/app/80/depots/?branch=steam_legacy) - Choose **Steam Legacy** installation
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
 - 🟣 Steam guides: [Eng](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485); [Rus](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
 
@@ -87,16 +87,16 @@ All plugin settings should be configured via [coop.cfg](czero/coop.cfg) file:
 	```
  
 2. Copy (with replace) repository content to your `Half-Life` folder
-3. For **maxplayers** patch, replace hex bytes in your `Half-Life\hw.dll` file:
-	- `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` for 25th Anniversary version
-	- `08 83 FE 01 7D 05 BE 01` to `08 EB 03 90 90 90 BE 20` for Pre-25th Anniversary build
+3. For **maxplayers** patch, replace hex bytes in your `Half-Life\hw.dll` file and update corresponding [dlls](dlls):
+	- `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` for [25th Anniversary](https://half-life.com/en/halflife25) version
+	- `08 83 FE 01 7D 05 BE 01` to `08 EB 03 90 90 90 BE 20` for [Pre-25th Anniversary](https://steamdb.info/app/80/depots/?branch=steam_legacy) version
 4. Build plugins:
-	- [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with `Half-Life\czero\addons\amxmodx\scripting\cz_coop.bat`
-	- [Autospawnpoints](https://dev-cs.ru/resources/1253) with `Half-Life\czero\addons\amxmodx\scripting\autospawnpoints.bat`
-	- [Bot Features](https://dev-cs.ru/resources/44/) with `Half-Life\czero\addons\amxmodx\scripting\botfeatures.bat`
-	- [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with `Half-Life\czero\addons\amxmodx\scripting\noslowdown.bat`
-5. Check `mp.dll` with `Signatures.asm` and edit **Orpheu** config files if it's required
-6. Build `Half-Life\Condition-Zero-Coop.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php) to make the installer
+	- [Condition Zero Coop](czero/addons/amxmodx/scripting/cz_coop.sma) with [cz_coop.bat](czero/addons/amxmodx/scripting/cz_coop.bat)
+	- [Autospawnpoints](https://dev-cs.ru/resources/1253) with [autospawnpoints.bat](czero/addons/amxmodx/scripting/autospawnpoints.bat)
+	- [Bot Features](https://dev-cs.ru/resources/44/) with [botfeatures.bat](czero/addons/amxmodx/scripting/botfeatures.bat)
+	- [No Slow Down](https://dev-cs.ru/threads/4088/page-2#post-95000) with [noslowdown.bat](czero/addons/amxmodx/scripting/noslowdown.bat)
+5. Check `mp.dll` with [Signatures.asm](Signatures.asm) and edit [Orpheu config files](czero/addons/amxmodx/configs/orpheu) if it's required
+6. Build [Condition-Zero-Coop.iss](Condition-Zero-Coop.iss) with [Inno Setup](https://jrsoftware.org/isinfo.php) to make the installer
 
 ## Special Thanks
 - [Arkshine](https://github.com/Arkshine)
