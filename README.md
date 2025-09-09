@@ -8,10 +8,11 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 
 - Left side: **Admin** `192.168.124.1`
 - Right side: **Player** `192.168.124.160`
-- Added extra enemy bots on Player join
+- Added extra enemy bots on **Player** join
 
 ## Features
 - 🏃‍♀️ Compatibility with [Yet Another POD-Bot (YaPB)](https://yapb.readthedocs.io/en/latest/index.html)
+- 🎁 [25th Anniversary](https://half-life.com/en/halflife25) and [Legacy](https://steamdb.info/app/80/depots/?branch=steam_legacy) versions support
 - 🎮 Maximum slots and spawns for extra players
 - 😎 Singleplayer and custom campaign support
 - ➕ Extra bots addition for each joined player
@@ -25,7 +26,7 @@ https://github.com/MuxaJlbl4/Condition-Zero-Coop/assets/20092823/f141a596-781c-4
 - ⏳ No pauses
 
 ## Requirements
-- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) for all teammates
+- [Counter-Strike: Condition Zero](https://store.steampowered.com/app/80) for every participant
 - **LAN connection** with your teammates (physical or virtual)
 
 ## Installation and Usage
@@ -57,10 +58,10 @@ All plugin settings should be configured via [coop.cfg](czero/coop.cfg) file:
 | `player_kill` | Kill all players (non-bots) |
 
 ## Notes
-- ⚙️ Additional settings can be configured via [coop.cfg](czero/coop.cfg) and [game.cfg](czero/game.cfg)
+- ⚙️ Additional settings should be configured via [coop.cfg](czero/coop.cfg) and [game.cfg](czero/game.cfg)
 - ⚡ To play as a bot after player death: switch to spectating for your bot and press **`N`**
-- 🪟 For latest **[25th Anniversary Update](https://half-life.com/en/halflife25)** - Choose **Steam** installation
-- ⏳ For **Pre-25th Anniversary** builds - Choose **Steam Legacy** installation
+- 🪟 For latest [25th Anniversary Update](https://half-life.com/en/halflife25) - Choose **Steam** installation
+- ⏳ For [Pre-25th Anniversary](https://steamdb.info/app/80/depots/?branch=steam_legacy) builds - Choose **Steam Legacy** installation
 - 🍌 More missions: [gamebanana.com](https://gamebanana.com/mods/cats/2547?_sSort=Generic_MostLiked)
 - 🟣 Steam guides: [Eng](https://steamcommunity.com/sharedfiles/filedetails/?id=3059078485); [Rus](https://steamcommunity.com/sharedfiles/filedetails/?id=3059084601)
 
@@ -78,10 +79,13 @@ All plugin settings should be configured via [coop.cfg](czero/coop.cfg) file:
 	- [Orpheu](https://github.com/Arkshine/Orpheu)
 	- [ReAPI](https://github.com/rehlds/ReAPI)
 	- [YaPB](https://github.com/yapb/yapb)
-	For **ReGameDLL_CS** build **Release Play** version with **Visual Studio 2015 Update 3** with changed line in `dlls\globals.cpp`:
-	```
+	
+ 	For [ReGameDLL_CS](https://github.com/s1lentq/ReGameDLL_CS) build **Release Play** version with **Visual Studio 2015 Update 3** and modified line in [`regamedll\dlls\hostage\hostage.cpp`](https://github.com/rehlds/ReGameDLL_CS/blob/master/regamedll/dlls/hostage/hostage.cpp#L31):
+ 
+	```cpp
 	cvar_t cv_hostage_ai_enable = { "hostage_ai_enable", "1", 0, 1.0f, nullptr };
 	```
+ 
 2. Copy (with replace) repository content to your `Half-Life` folder
 3. For **maxplayers** patch, replace hex bytes in your `Half-Life\hw.dll` file:
 	- `3B F0 0F 4C F0 A1` to `BE 20 00 00 00 A1` for 25th Anniversary version
